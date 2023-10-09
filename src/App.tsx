@@ -23,13 +23,25 @@ function App() {
       setTasks(newTasks);
     };
 
+    const deleteTask = (selectedTask: Task) => {
+        const newTasks = tasks.filter(task => task.id !== selectedTask.id);
+        setTasks(newTasks);
+    };
+ 
+    const editTask = (selectedTask: Task, newTitle: string) => {
+        const newTasks = tasks.map(task =>
+          task.id === selectedTask.id ? { ...task, title: newTitle } : task
+        );
+        setTasks(newTasks);
+    };
+    
     return (
       <div>
         <header className="App-header">
             <img src={logo} className="App-logo" alt="logo" />
             <h1>Task Manager</h1>
             <AddTask addTask={addTask} />
-            <TaskList tasks={tasks} toggleTaskDone={toggleTaskDone} />
+            <TaskList tasks={tasks} toggleTaskDone={toggleTaskDone} deleteTask={deleteTask} editTask={editTask} />
         </header>
       </div>
     );
